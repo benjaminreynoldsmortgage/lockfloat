@@ -1,0 +1,10 @@
+{
+  "name": "cilc-lock-float-advisor",
+  "version": "1.0.0",
+  "description": "Cook Inlet Lending Center real-time lock/float decision service for loan officers",
+  "private": true,
+  "dependencies": {
+    "@upstash/redis": "^1.34.0"
+  },
+  "engines": { "node": ">=18" }
+}

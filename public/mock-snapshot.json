@@ -1,0 +1,427 @@
+{
+  "asOf": "2026-06-12T22:45:53.334Z",
+  "asOfLabel": "6/12/2026, 2:45:53 PM AKT (mock)",
+  "headline": "Inflation is reaccelerating off a Middle-East oil shock (PPI at 2022 highs), the Fed has dropped its easing bias with hike odds rising, and today's lower rates ride on fragile peace headlines. Lock-biased, high-volatility tape: float only the shortest window, and only with discipline.",
+  "alaska": "Falling crude eases national inflation but pressures Alaska state revenue and North Slope employment — watch local purchase demand if the oil slide deepens.",
+  "factors": [
+    {
+      "key": "trend",
+      "score": 0,
+      "val": "4.47%",
+      "nm": "10Y Treasury — trend",
+      "sub": "DGS10 level & direction"
+    },
+    {
+      "key": "momo",
+      "score": -1,
+      "val": "-2.4 bp/day",
+      "nm": "Yield momentum",
+      "sub": "5-day rate-of-change"
+    },
+    {
+      "key": "vol",
+      "score": 1,
+      "val": "Elevated",
+      "nm": "Rate volatility",
+      "sub": "realized vol + headline risk"
+    },
+    {
+      "key": "spread",
+      "score": 1,
+      "val": "2.70 pts",
+      "nm": "MBS / Treasury spread",
+      "sub": "current-coupon basis"
+    },
+    {
+      "key": "fed",
+      "score": 1,
+      "val": "3.63%",
+      "nm": "Fed path",
+      "sub": "fed funds + FOMC bias"
+    },
+    {
+      "key": "infl",
+      "score": 2,
+      "val": "CPI 3.4% · PPI 6.5%",
+      "nm": "Inflation data",
+      "sub": "CPI / PPI vs trend"
+    },
+    {
+      "key": "oil",
+      "score": -1,
+      "val": "WTI -14.6% / 10d",
+      "nm": "Oil / energy",
+      "sub": "WTI direction"
+    },
+    {
+      "key": "cal",
+      "score": 1,
+      "val": "Heavy",
+      "nm": "Data-calendar risk",
+      "sub": "jobs / CPI / FOMC ahead"
+    },
+    {
+      "key": "news",
+      "score": 1,
+      "val": "8 stories",
+      "nm": "News sentiment",
+      "sub": "US/world/industry headlines"
+    }
+  ],
+  "verdicts": [
+    {
+      "days": 15,
+      "norm": 0.22471910112359544,
+      "verdict": "Cautiously Float",
+      "cls": "caution",
+      "tag": "CAUTION",
+      "conf": 77
+    },
+    {
+      "days": 30,
+      "norm": 0.29787234042553196,
+      "verdict": "Lock Now",
+      "cls": "lock",
+      "tag": "LOCK",
+      "conf": 82
+    },
+    {
+      "days": 45,
+      "norm": 0.3368421052631579,
+      "verdict": "Lock Now",
+      "cls": "lock",
+      "tag": "LOCK",
+      "conf": 84
+    },
+    {
+      "days": 60,
+      "norm": 0.3608247422680412,
+      "verdict": "Lock Now",
+      "cls": "lock",
+      "tag": "LOCK",
+      "conf": 86
+    }
+  ],
+  "forecast": {
+    "drift": -0.2,
+    "volDaily": 2.5,
+    "out": {
+      "15": {
+        "tenYearPoint": 4.46,
+        "tenYearLow": 4.37,
+        "tenYearHigh": 4.55,
+        "mortgagePoint": 7.16,
+        "mortgageLow": 7.07,
+        "mortgageHigh": 7.25,
+        "confidence": 53
+      },
+      "30": {
+        "tenYearPoint": 4.45,
+        "tenYearLow": 4.32,
+        "tenYearHigh": 4.58,
+        "mortgagePoint": 7.15,
+        "mortgageLow": 7.02,
+        "mortgageHigh": 7.28,
+        "confidence": 54
+      },
+      "45": {
+        "tenYearPoint": 4.44,
+        "tenYearLow": 4.28,
+        "tenYearHigh": 4.6,
+        "mortgagePoint": 7.14,
+        "mortgageLow": 6.98,
+        "mortgageHigh": 7.3,
+        "confidence": 55
+      },
+      "60": {
+        "tenYearPoint": 4.43,
+        "tenYearLow": 4.24,
+        "tenYearHigh": 4.62,
+        "mortgagePoint": 7.13,
+        "mortgageLow": 6.94,
+        "mortgageHigh": 7.32,
+        "confidence": 55
+      }
+    }
+  },
+  "readings": {
+    "tenYear": 4.47,
+    "fedFunds": 3.63,
+    "mortgage30": 7.17,
+    "cpiYoY": 3.4,
+    "ppiYoY": 6.5,
+    "spread": 2.7,
+    "wti": 66
+  },
+  "history": {
+    "tenY": [
+      {
+        "date": "d0",
+        "value": 4.304
+      },
+      {
+        "date": "d1",
+        "value": 4.309
+      },
+      {
+        "date": "d2",
+        "value": 4.316
+      },
+      {
+        "date": "d3",
+        "value": 4.324
+      },
+      {
+        "date": "d4",
+        "value": 4.334
+      },
+      {
+        "date": "d5",
+        "value": 4.344
+      },
+      {
+        "date": "d6",
+        "value": 4.356
+      },
+      {
+        "date": "d7",
+        "value": 4.368
+      },
+      {
+        "date": "d8",
+        "value": 4.381
+      },
+      {
+        "date": "d9",
+        "value": 4.395
+      },
+      {
+        "date": "d10",
+        "value": 4.409
+      },
+      {
+        "date": "d11",
+        "value": 4.423
+      },
+      {
+        "date": "d12",
+        "value": 4.437
+      },
+      {
+        "date": "d13",
+        "value": 4.45
+      },
+      {
+        "date": "d14",
+        "value": 4.464
+      },
+      {
+        "date": "d15",
+        "value": 4.476
+      },
+      {
+        "date": "d16",
+        "value": 4.487
+      },
+      {
+        "date": "d17",
+        "value": 4.498
+      },
+      {
+        "date": "d18",
+        "value": 4.507
+      },
+      {
+        "date": "d19",
+        "value": 4.516
+      },
+      {
+        "date": "d20",
+        "value": 4.522
+      },
+      {
+        "date": "d21",
+        "value": 4.528
+      },
+      {
+        "date": "d22",
+        "value": 4.532
+      },
+      {
+        "date": "d23",
+        "value": 4.534
+      },
+      {
+        "date": "d24",
+        "value": 4.535
+      },
+      {
+        "date": "d25",
+        "value": 4.535
+      },
+      {
+        "date": "d26",
+        "value": 4.534
+      },
+      {
+        "date": "d27",
+        "value": 4.531
+      },
+      {
+        "date": "d28",
+        "value": 4.528
+      },
+      {
+        "date": "d29",
+        "value": 4.523
+      },
+      {
+        "date": "d30",
+        "value": 4.518
+      },
+      {
+        "date": "d31",
+        "value": 4.513
+      },
+      {
+        "date": "d32",
+        "value": 4.507
+      },
+      {
+        "date": "d33",
+        "value": 4.501
+      },
+      {
+        "date": "d34",
+        "value": 4.495
+      },
+      {
+        "date": "d35",
+        "value": 4.489
+      },
+      {
+        "date": "d36",
+        "value": 4.484
+      },
+      {
+        "date": "d37",
+        "value": 4.48
+      },
+      {
+        "date": "d38",
+        "value": 4.476
+      },
+      {
+        "date": "d39",
+        "value": 4.474
+      },
+      {
+        "date": "d40",
+        "value": 4.472
+      },
+      {
+        "date": "d41",
+        "value": 4.472
+      },
+      {
+        "date": "d42",
+        "value": 4.473
+      },
+      {
+        "date": "d43",
+        "value": 4.476
+      },
+      {
+        "date": "d44",
+        "value": 4.48
+      },
+      {
+        "date": "d45",
+        "value": 4.485
+      },
+      {
+        "date": "d46",
+        "value": 4.492
+      },
+      {
+        "date": "d47",
+        "value": 4.5
+      },
+      {
+        "date": "d48",
+        "value": 4.51
+      },
+      {
+        "date": "d49",
+        "value": 4.52
+      },
+      {
+        "date": "d50",
+        "value": 4.532
+      },
+      {
+        "date": "d51",
+        "value": 4.544
+      },
+      {
+        "date": "d52",
+        "value": 4.558
+      },
+      {
+        "date": "d53",
+        "value": 4.571
+      },
+      {
+        "date": "d54",
+        "value": 4.55
+      },
+      {
+        "date": "d55",
+        "value": 4.599
+      },
+      {
+        "date": "d56",
+        "value": 4.613
+      },
+      {
+        "date": "d57",
+        "value": 4.627
+      },
+      {
+        "date": "d58",
+        "value": 4.53
+      },
+      {
+        "date": "d59",
+        "value": 4.47
+      }
+    ]
+  },
+  "headlines": [
+    {
+      "title": "Treasury yields tumble as oil falls on Trump Iran reversal",
+      "source": "CNBC",
+      "url": "https://www.cnbc.com/quotes/US10Y"
+    },
+    {
+      "title": "Producer prices rise 6.5% year-on-year in May, highest since 2022",
+      "source": "Reuters",
+      "url": "https://tradingeconomics.com/united-states/producer-prices"
+    },
+    {
+      "title": "No bets left for a Fed rate cut in 2026; hike bets rising",
+      "source": "Investing.com",
+      "url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield"
+    },
+    {
+      "title": "High mortgage rates to keep US housing turnover subdued",
+      "source": "Reuters",
+      "url": "https://www.reuters.com/markets/us/"
+    },
+    {
+      "title": "FOMC held at 3.50–3.75%; 8-4 vote, easing bias removed",
+      "source": "Trading Economics",
+      "url": "https://www.federalreserve.gov/monetarypolicy.htm"
+    }
+  ]
+}

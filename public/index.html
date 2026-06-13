@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lock / Float Advisor — Cook Inlet Lending Center</title>
+<style>
+  :root{
+    --ink:#10201c; --paper:#f3efe6; --panel:#fbf9f4; --line:#d9d2c4; --muted:#6c7269;
+    --glacier:#2f6f6b; --glacier-d:#1f4f4c;
+    --lock:#a4332b; --lock-bg:#f7e3df; --caution:#b5852a; --caution-bg:#f6ecd2;
+    --float:#2f6f53; --float-bg:#dfeede;
+    --shadow:0 1px 0 rgba(16,32,28,.04), 0 8px 28px -16px rgba(16,32,28,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 64px}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--glacier-d)}
+  h1{font-size:clamp(26px,4vw,40px);line-height:1.04;margin:.25em 0 .12em;font-weight:600;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:14.5px;max-width:64ch}
+  .bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:16px 0 6px}
+  .stamp{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted)}
+  .live{display:inline-flex;align-items:center;gap:6px;font-family:"IBM Plex Mono",monospace;font-size:11px;
+    color:var(--float);background:var(--float-bg);padding:4px 9px;border-radius:20px}
+  .live i{width:7px;height:7px;border-radius:50%;background:var(--float);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .next{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted)}
+
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 24px}
+  @media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .card .win{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .card .verdict{font-size:21px;font-weight:600;margin:8px 0 4px;line-height:1.08}
+  .card .conf{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted)}
+  .card .bead{height:6px;border-radius:4px;background:var(--line);margin:11px 0 9px;overflow:hidden}
+  .card .bead>i{display:block;height:100%;border-radius:4px}
+  .card .fc{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);line-height:1.5;margin-top:6px}
+  .card .fc b{color:var(--ink)}
+  .card.lock{border-color:#e0b6b0}.card.lock .verdict{color:var(--lock)}.card.lock .bead>i{background:var(--lock)}
+  .card.caution{border-color:#e3cf9a}.card.caution .verdict{color:var(--caution)}.card.caution .bead>i{background:var(--caution)}
+  .card.float .verdict{color:var(--float)}.card.float .bead>i{background:var(--float)}
+  .card .tag{position:absolute;top:0;right:0;font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+    letter-spacing:.1em;padding:4px 8px;border-bottom-left-radius:10px;color:#fff}
+  .card.lock .tag{background:var(--lock)}.card.caution .tag{background:var(--caution)}.card.float .tag{background:var(--float)}
+
+  .split{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+  @media(max-width:900px){.split{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+  .panel h2{font-size:12.5px;font-family:"IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--glacier-d);margin:0 0 4px}
+  .panel h2+p{margin:.2em 0 12px;color:var(--muted);font-size:12.5px}
+  .factor{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+  .factor:first-of-type{border-top:none}
+  .factor .nm{font-size:13.5px}
+  .factor .nm small{display:block;color:var(--muted);font-size:11px;font-family:"IBM Plex Mono",monospace}
+  .factor .val{font-family:"IBM Plex Mono",monospace;font-size:12px;text-align:right;min-width:96px}
+  .pill{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.05em;padding:4px 9px;border-radius:20px;
+    white-space:nowrap;text-align:center;min-width:66px}
+  .pill.l{background:var(--lock-bg);color:var(--lock)}.pill.c{background:var(--caution-bg);color:var(--caution)}
+  .pill.f{background:var(--float-bg);color:var(--float)}.pill.n{background:#eceae2;color:var(--muted)}
+  .reason{font-size:14px;line-height:1.55}.reason p{margin:.1em 0 .9em}.reason b{color:var(--ink)}
+  .ak{font-size:12.5px;color:var(--glacier-d);background:#eaf1ee;border-radius:9px;padding:9px 12px;margin-top:4px;line-height:1.45}
+
+  .spark{height:46px;width:100%;margin-top:6px}
+  .news{margin-top:8px}
+  .news a{display:block;color:var(--ink);text-decoration:none;font-size:13px;padding:8px 0;border-top:1px solid var(--line);line-height:1.35}
+  .news a:first-child{border-top:none}.news a:hover{color:var(--glacier-d);text-decoration:underline}
+  .news .src{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted)}
+
+  .script{background:var(--ink);color:#eef1ec;border-radius:14px;padding:18px 20px;margin-top:20px;box-shadow:var(--shadow)}
+  .script h2{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9fc4bd;margin:0 0 10px}
+  .script .line{border-top:1px solid #29403a;padding:10px 0;font-size:13.5px;line-height:1.5}
+  .script .line:first-of-type{border-top:none}.script .line b{color:#fff}
+  .foot{margin-top:22px;font-size:11px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line);padding-top:14px;font-family:"IBM Plex Mono",monospace}
+  .warming{text-align:center;padding:60px 20px;color:var(--muted);font-family:"IBM Plex Mono",monospace;font-size:13px}
+  .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--glacier);
+    border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px;margin-right:8px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Cook Inlet Lending Center · Secondary Desk</div>
+  <h1>Lock / Float Advisor</h1>
+  <p class="sub">Live lock-certainty across every pipeline window, refreshed automatically on the desk's schedule. One call per window — Okay to Float, Cautiously Float, or Lock Now — built from the full economic picture, a statistical rate forecast, and US/world/industry news.</p>
+
+  <div class="bar">
+    <span class="live"><i></i>LIVE</span>
+    <span class="stamp" id="stamp">Connecting…</span>
+    <span class="next" id="next"></span>
+  </div>
+
+  <div id="app">
+    <div class="warming"><span class="spin"></span>Loading the latest desk snapshot…</div>
+  </div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+const WINDOWS=[15,30,45,60];
+const TALK={
+  "Lock Now": d=>`<b>${d}-day:</b> "I'm recommending we lock today. The data and Fed path are pushing rates up, and any dip right now is fragile. Protecting your payment beats gambling your close on a reversal."`,
+  "Cautiously Float": d=>`<b>${d}-day:</b> "We can float, but on a short leash. I'm watching the tape and I'll text you the moment it turns — any hot print or pop higher and we lock same-day."`,
+  "Okay to Float": d=>`<b>${d}-day:</b> "We've got room to float this one. Momentum's in our favor and nothing near-term is forcing our hand. I'll lock you the second the math says so."`
+};
+const pillClass=s=>s>=2?"l":s===1?"c":s<=-1?"f":"n";
+const pillText=s=>s>=1?"LOCK +"+s:s<=-1?"FLOAT "+s:"NEUTRAL";
+
+function sparkline(series){
+  if(!series||series.length<2) return "";
+  const vals=series.map(o=>o.value), min=Math.min(...vals), max=Math.max(...vals), rng=max-min||1;
+  const W=300,H=46, step=W/(vals.length-1);
+  const pts=vals.map((v,i)=>`${(i*step).toFixed(1)},${(H-((v-min)/rng)*(H-6)-3).toFixed(1)}`).join(" ");
+  const up=vals[vals.length-1]>=vals[0];
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+    <polyline points="${pts}" fill="none" stroke="${up?'#a4332b':'#2f6f53'}" stroke-width="2" vector-effect="non-scaling-stroke"/>
+  </svg>`;
+}
+
+function render(s){
+  const app=document.getElementById('app');
+  const fc=s.forecast;
+  const cards=s.verdicts.map(c=>{
+    const f=fc&&fc.out?fc.out[c.days]:null;
+    const fcLine=f?`<div class="fc">Proj. 10Y <b>${f.tenYearPoint}%</b> (${f.tenYearLow}–${f.tenYearHigh})<br>Proj. note rate <b>${f.mortgagePoint}%</b> · fcst conf ${f.confidence}%</div>`:"";
+    return `<div class="card ${c.cls}">
+      <span class="tag">${c.tag}</span>
+      <div class="win">${c.days}-Day Lock</div>
+      <div class="verdict">${c.verdict}</div>
+      <div class="bead"><i style="width:${Math.round((c.norm+1)/2*100)}%"></i></div>
+      <div class="conf">Certainty ${c.conf}% · bias ${(c.norm>=0?'+':'')}${(c.norm*100).toFixed(0)}</div>
+      ${fcLine}
+    </div>`;}).join("");
+
+  const factors=s.factors.map(f=>`<div class="factor">
+      <div class="nm">${f.nm}<small>${f.sub}</small></div>
+      <div class="val">${f.val}</div>
+      <div class="pill ${pillClass(f.score)}">${pillText(f.score)}</div>
+    </div>`).join("");
+
+  const lock=s.verdicts.filter(c=>c.cls==='lock').map(c=>c.days);
+  const caut=s.verdicts.filter(c=>c.cls==='caution').map(c=>c.days);
+  const flt =s.verdicts.filter(c=>c.cls==='float').map(c=>c.days);
+  const seg=(a,l)=>a.length?`<b>${l}:</b> ${a.join(', ')}-day. `:'';
+
+  const news=(s.headlines||[]).map(h=>{
+    const href=h.url?` href="${h.url}" target="_blank" rel="noopener"`:` href="#" onclick="return false"`;
+    return `<a${href}>${h.title}<span class="src"> — ${h.source||''}</span></a>`;
+  }).join("");
+
+  const scripts=s.verdicts.map(c=>`<div class="line">${TALK[c.verdict](c.days)}</div>`).join("");
+
+  app.innerHTML=`
+    <div class="grid">${cards}</div>
+    <div class="split">
+      <div class="panel">
+        <h2>Market Factors</h2>
+        <p>Nine inputs, each scored −2 (float) to +2 (lock), from live FRED data + news overlay.</p>
+        ${factors}
+        <h2 style="margin-top:18px">10Y Treasury — last 60 obs</h2>
+        ${sparkline(s.history&&s.history.tenY)}
+      </div>
+      <div class="panel">
+        <h2>Desk Read</h2>
+        <div class="reason">
+          <p>${s.headline||''}</p>
+          <p>${seg(lock,'Lock now')}${seg(caut,'Cautiously float')}${seg(flt,'Okay to float')}</p>
+        </div>
+        ${s.alaska?`<div class="ak">🏔️ ${s.alaska}</div>`:''}
+        <h2 style="margin-top:18px">Headlines feeding the read</h2>
+        <div class="news">${news||'<span class="src">No headlines this cycle.</span>'}</div>
+      </div>
+    </div>
+    <div class="script"><h2>LO Talk Track — by window</h2>${scripts}</div>`;
+
+  document.getElementById('stamp').textContent=`As of ${s.asOfLabel||s.asOf}`;
+  document.getElementById('foot').innerHTML=
+    `Engine scores nine factors per window (−2 float … +2 lock), normalizes to a −100…+100 bias → verdict (≥+28 Lock · ≥+8 Cautious · else Float). Forecast projects the 10Y forward from 30-day drift & volatility with a 1-sigma band, translated to a note-rate proxy via the live Freddie-30Y/10Y spread; "fcst conf" reflects how cleanly the trend beats the noise. Hard data: FRED (Treasury, Fed funds, CPI, PPI, WTI, Freddie 30Y). News: live feed. Narrative: AI over the numbers. Decision support only — confirm on your lock desk before committing a borrower. Not investment advice.`;
+}
+
+async function poll(){
+  try{
+    const r=await fetch('/api/snapshot',{cache:'no-store'});
+    if(r.status===503){document.getElementById('stamp').textContent='Warming up — first snapshot computing…';return;}
+    if(!r.ok) throw new Error('no api');
+    const s=await r.json();
+    render(s);
+    scheduleNext(s.asOf);
+  }catch(e){
+    // fallback: static mock snapshot (lets the dashboard work before the backend is wired up)
+    try{
+      const r2=await fetch('mock-snapshot.json',{cache:'no-store'});
+      const s=await r2.json();
+      render(s);
+      document.getElementById('next').textContent='· demo data (backend not connected)';
+    }catch(_){
+      document.getElementById('stamp').textContent='Reconnecting…';
+    }
+  }
+}
+function scheduleNext(asOf){
+  // show a soft countdown to the next ~30-min cycle
+  const t=new Date(asOf).getTime()+30*60*1000;
+  clearInterval(window._cd);
+  window._cd=setInterval(()=>{
+    const ms=t-Date.now();
+    if(ms<=0){document.getElementById('next').textContent='· refreshing…';return;}
+    const m=Math.floor(ms/60000),sec=Math.floor((ms%60000)/1000);
+    document.getElementById('next').textContent=`· next update ~${m}m ${sec}s`;
+  },1000);
+}
+
+poll();
+setInterval(poll, 5*60*1000); // re-pull the stored snapshot every 5 min (cheap; no recompute)
+</script>
+</body>
+</html>
